@@ -41,10 +41,14 @@ In this project, tweets about fad diets are used to understand the relationship 
 # Data Sources:
 (1) Twitter. Tweets were collected with the “firehose” method, which collects 1% of tweets as they stream in, using Tweepy and calling on Twitter’s API for one month. Tweets were restricted to English language tweets and further filtered on mentions of the following fad diets: Keto, Gluten Free, Atkins, Paleo, and Whole30. The diets were selected through a search of the most current popular fad diets as of May 2019. For more EDA see my [first capstone](). Keto was the most tweeted about diet.
 
+### Popularity of Fad Diets
 ![](images/Popularity_of_fad_diets.png)
 
 Tweets were clustered around major cities confirming that tweets can be analyzed at the city level.
+
 ![](images/Tweets_Heat_Map.png)
+
+Overview of fad diets[5](mayoclinic.org)
 
 |Diet|Description|
 |:---:|:---:|
@@ -53,9 +57,9 @@ Tweets were clustered around major cities confirming that tweets can be analyzed
 |Atkins| Low-carb. Promoted by the physician Dr. Robert C. Atkins, who wrote a best-selling book about it in 1972.|
 |Paleo| Also known as the caveman diet. Based on foods similar to what might have been eaten during the Paleolithic era with a diet high in lean meats, fish, fruits, vegetables, nuts and seeds. Limits dairy products, legumes and grains.|
 |Whole30|For 30 days, no sugar, alcohol, grains, legumes, dairy or treats in general are allowed Moderate amounts of meat, seafood and eggs; vegetables aplenty; some fruit; and natural fats such as nuts and avocado.|
-[5](mayoclinic.org)
 
-(2) CDC 500 Cities.[6](https://www.cdc.gov/500cities/index.htm). This project provides city-level chronic disease outcomes comes from the CDC 500 Cities Project. Of interest are obesity prevalence rates for the largest 500 cities in the US to be used as the target.
+
+(2) [CDC 500 Cities](https://www.cdc.gov/500cities/index.htm). This project provides city-level chronic disease outcomes comes from the CDC 500 Cities Project. Of interest are obesity prevalence rates for the largest 500 cities in the US to be used as the target.
 
 (3) Census. Demographic information for cities were obtained from the American Community Survey 2017 release which included data on population, age and sex, race and ethnicity, housing, living arrangements, computer use, education, disability, workforce and businesses.
 
@@ -96,32 +100,36 @@ The model was better at predicting high and medium obesity compared to low obesi
 Permutation Importance was used to determine the most important features in the model. This method was used because it is a more reliable method than the built-in feature importance method. With permutation importance, a baseline accuracy is recorded by passing a validation set. Then features are permuted and accuracy score is re-calculated. The importance of that feature is the difference between the baseline and the drop in overall accuracy or R2 caused by permuting the column.[7](https://eli5.readthedocs.io/en/latest/blackbox/permutation_importance.html)
 
 
-Baseline Permutation Importances
-![](images/permutation_importances_baseline.png)
-"Per capita income," "Asian alone," "mean travel time to work," and "Hispanic" are the top features based on permutation importance.
+Baseline Permutation Importances: Per capita income," "Asian alone," "mean travel time to work," and "Hispanic" are the top features based on permutation importance.
 
-Full Permutation Importances
+![](images/permutation_importances_baseline.png)
+
+Full Permutation Importances: Positive and negative tweet scores are the 5th and 7th most important features in the model.
+
 ![](images/permutation_importances_full.png)
-Positive and negative tweet scores are the 5th and 7th most important features in the model.
 
 ### Partial Dependence Plots
 Partial dependence plots show the dependence between a variable and the obesity prevalence. Obesity prevalence was categorized into high and medium+low for this purpose because it is more important to see the impact on cities with high obesity prevalence.
 
 Highly positive and highly negative tweets are associated with higher obesity prevalence. High obesity rates are less dependent on slightly negative and slightly positive tweets.
+
 ![](images/pdp_negative.png)
+
 ![](images/pdp_positive.png)
 
 Looking at the two highest permutation importance features, High obesity rates are dependent on Median Gross Rent from $800 to $900 a month after which the dependence decreases rapidly.
-![](pdp_rent.png)
+
+![](images/pdp_rent.png)
 
 High obesity rates are dependent on per capita income (mean income of living group) from around 19k to 30k a month after which the dependence decreases rapidly.
-![](pdp_income.png)
+
+![](images/pdp_income.png)
 
 
 # Conclusion
 Cities where tweets are more highly positive and negative are important features in predicting high obesity prevalence rates. This finding shows that the sentiment with which people are talking about fad diets within their network is associated to obesity. The random forest model yielded the highest accuracy score. From a public health perspective, tweet sentiment can be monitored and used as a cost-effective up-to-the-minute preliminary indicator of high obesity prevalence for cities. From a marketing perspective, this information can point to drivers of highly negative or positive tweets about a diet with additional research.
 
-There are several limitations. Aside from the limitations of twitter data, there are too many fad diets to filter on and only the most popular ones were used. Fads, by nature, are fleeting and no doubt different fad diets will pop up within the next year than analyzed here. Twitter also recently removed their precise location tagging [8](https://www.niemanlab.org/2019/06/twitter-is-turning-off-location-data-on-tweets-a-small-win-for-privacy-but-a-small-loss-for-journalists-and-researchers/)
+There are several limitations. Aside from the limitations of twitter data, there are too many fad diets to filter on and only the most popular ones were used. Fads, by nature, are fleeting and no doubt different fad diets will pop up within the next year than analyzed here. Twitter also recently removed their precise location tagging [8.](https://www.niemanlab.org/2019/06/twitter-is-turning-off-location-data-on-tweets-a-small-win-for-privacy-but-a-small-loss-for-journalists-and-researchers/)
 
 The CDC dataset is limited to the 500 largest cities which represent ~1/3 of the population. Thus, rural areas are not represented in this data.
 
@@ -138,7 +146,7 @@ Future research should link BMI scores to each tweet to unveil the true relation
 7. https://eli5.readthedocs.io/en/latest/blackbox/permutation_importance.html
 8. https://www.niemanlab.org/2019/06/twitter-is-turning-off-location-data-on-tweets-a-small-win-for-privacy-but-a-small-loss-for-journalists-and-researchers/)
 
-#Tools Used:
+# Tools Used:
 Python (Pandas, Numpy)
 Natural Language Processing (TextBlob)
 Twitter API
