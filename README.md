@@ -1,11 +1,8 @@
 # Analyzing Sentiment of Fad Diet Tweets using Natural Language Processing and Predicting Health Outcomes with Machine Learning Techniques
 Vinh Tran
 
-### Link to [GitHub](https://github.com/vinhttran/fad_diets_prediction)
-
-### Link to Presentation
+### Links to Presentation
 [Keynote](https://drive.google.com/file/d/1eELvOFhvU7BpXIzDhOLDOIlTbJy5KrYq/view?usp=sharing)
-
 [PDF](https://drive.google.com/file/d/1RrDwgiRb_zyAFHyjcw0eih1gRjDUZj0p/view?usp=sharing)
 
 # Table of Contents
@@ -24,9 +21,9 @@ Background:
 
 In 2018, the diet and weight loss market in the US continued to grow to roughly $72 billion dollars [1](https://www.businesswire.com/news/home/20190225005455/en/72-Billion-Weight-Loss-Diet-Control-Market). This is in light of constant changes in consumer tastes, preferences and dietary goals (i.e., shift from being “skinny” to being “healthy” and “strong”). Fad diets capitalize on this market by promising improved health usually by way of weight-loss. Other hallmarks of fad diets include: promoting/restricting certain foods or food groups, promising various improved health-outcomes (quickly), being hard to sustain, and only being anecdotally effective. Recent popular fad diets include the Keto diet and the Paleo diet.
 
-One major factor why fad diets are popular today is the pursuit of weight-loss because of the current obesity “epidemic” in the US [2](https://www.hsph.harvard.edu/nutritionsource/an-epidemic-of-obesity/). Almost 40% of US adults are obese, translating to roughly 93.3 million adults in 2015-2016. 66%  are overweight. This is not only a public health issue but an economic one. According to the CDC, “The estimated annual medical cost of obesity in the United States was $147 billion in 2008 US dollars; the medical cost for people who have obesity was $1,429 higher than those of normal weight. “ [3](https://www.cdc.gov/obesity/data/adult.html).
+One major factor why fad diets are popular today is the pursuit of weight-loss because of the current obesity epidemic in the US [2](https://www.hsph.harvard.edu/nutritionsource/an-epidemic-of-obesity/). Almost 40% of US adults are obese, translating to roughly 93.3 million adults in 2015-2016. 66%  are overweight. This is not only a public health issue but an economic one. According to the CDC, “The estimated annual medical cost of obesity in the United States was $147 billion in 2008 US dollars; the medical cost for people who have obesity was $1,429 higher than those of normal weight. “ [3](https://www.cdc.gov/obesity/data/adult.html).
 
-Furthermore, obesity has been shown to have a network effect [4](https://www.nejm.org/doi/full/10.1056/NEJMsa066082). In a widely-cited study by Christakis, et. al. at Harvard, the chances of becoming obese increased by 57% if he or she had a friend who became obese in a given interval. Therefore, it is worth exploring the social aspect of fad diets as it relates to obesity.
+Furthermore, obesity has been shown to have a network effect [4](https://www.nejm.org/doi/full/10.1056/NEJMsa066082). In a widely-cited study by Christakis, et. al. at Harvard, the chances of becoming obese increased by 57% if he or she had a friend who became obese in a given interval. Therefore, it is worth exploring the social aspect of fad diets as it relates to obesity within a network like a city.
 
 Definition of Obesity
 |BMI (kg/m^2)|Classification|
@@ -44,9 +41,11 @@ In this project, tweets about fad diets are used to understand the relationship 
 # Data Sources:
 (1) Twitter. Tweets were collected with the “firehose” method, which collects 1% of tweets as they stream in, using Tweepy and calling on Twitter’s API for one month. Tweets were restricted to English language tweets and further filtered on mentions of the following fad diets: Keto, Gluten Free, Atkins, Paleo, and Whole30. The diets were selected through a search of the most current popular fad diets as of May 2019. For more EDA see my [first capstone](). Keto was the most tweeted about diet.
 
-![](Popularity_of_fad_diets.png)
+![](images/Popularity_of_fad_diets.png)
 
-Diet Chart
+Tweets were clustered around major cities confirming that tweets can be analyzed at the city level.
+![](images/Tweets_Heat_Map.png)
+
 |Diet|Description|
 |:---:|:---:|
 |Keto| Low-carb, high-fat. The idea is to put your body into a metabolic state called ketosis. |
@@ -63,12 +62,17 @@ Diet Chart
 
 # Pipeline
 
-![](capstone3process.png)
+![](images/capstone3process.png)
 
 Tweets were filtered as described above. A sentiment score was calculated for each tweet using TextBlob after preprocessing, which included removal of URLs, smileys, mentions and emojis. For more EDA see my [second capstone]() which found the following broad topics in the tweets using Natural Language Processing and Latent Dirichlet Allocation:
 
 
+These were the most common words in the tweets:
+![](images/word_cloud.png)
+
 Twitter data was then mapped to the closest major city using the tagged geolocation and merged by city and state to CDC 500 Cities data. Obesity prevalence rates were quantile-based discretized to "low", "medium", and "high" prior to the merge. These data were then merged to Census data, again using city and state.
+
+![](images/Obesity_Prevalance_in_US_Cities.png)
 
 Each variable was inspected. In the feature matrix, variables highly correlated variables to each other were removed. The baseline feature matrix consisted of only census demographic variables. The full feature matrix includes positive and negative sentiment scores. The target variable is the categorical obesity rates.
 
@@ -78,34 +82,34 @@ Since the dependent variable is categorical, classification models were used to 
 
 |Random Forest|Accuracy|Hyperparameters|
 |:---:|:---:|:---:|
-|Baseline| 0.68 | n_estimators = 100, max_depth = 90, min_samples_split = 8, min_samples_leaf=4|
-|Full| 0.74 | n_estimators = 100, max_depth = 90, min_samples_split = 8, min_samples_leaf=4|
+|Baseline| 0.68 | n_estimators = 100, max_features=3, max_depth = 90, min_samples_split = 8, min_samples_leaf=4|
+|Full| 0.74 | n_estimators = 100, max_features=3, max_depth = 90, min_samples_split = 8, min_samples_leaf=4|
 
 
 # Results
 
-###Confusion Matrix
-![](confusion_matrix.png)
+### Confusion Matrix
+![](images/confusion_matrix.png)
 The model was better at predicting high and medium obesity compared to low obesity prevalence.
 
-###Permutation Importances
+### Permutation Importances
 Permutation Importance was used to determine the most important features in the model. This method was used because it is a more reliable method than the built-in feature importance method. With permutation importance, a baseline accuracy is recorded by passing a validation set. Then features are permuted and accuracy score is re-calculated. The importance of that feature is the difference between the baseline and the drop in overall accuracy or R2 caused by permuting the column.[7](https://eli5.readthedocs.io/en/latest/blackbox/permutation_importance.html)
 
 
 Baseline Permutation Importances
-![](permutation_importances_baseline.png)
+![](images/permutation_importances_baseline.png)
 "Per capita income," "Asian alone," "mean travel time to work," and "Hispanic" are the top features based on permutation importance.
 
 Full Permutation Importances
-![](permutation_importances_baseline.png)
+![](images/permutation_importances_full.png)
 Positive and negative tweet scores are the 5th and 7th most important features in the model.
 
-###Partial Dependence Plots
+### Partial Dependence Plots
 Partial dependence plots show the dependence between a variable and the obesity prevalence. Obesity prevalence was categorized into high and medium+low for this purpose because it is more important to see the impact on cities with high obesity prevalence.
 
 Highly positive and highly negative tweets are associated with higher obesity prevalence. High obesity rates are less dependent on slightly negative and slightly positive tweets.
-![](pdp_negative.png)
-![](pdp_positive.png)
+![](images/pdp_negative.png)
+![](images/pdp_positive.png)
 
 Looking at the two highest permutation importance features, High obesity rates are dependent on Median Gross Rent from $800 to $900 a month after which the dependence decreases rapidly.
 ![](pdp_rent.png)
