@@ -2,8 +2,7 @@
 Vinh T. Tran
 
 ### Links to Presentation
-[Keynote](https://drive.google.com/file/d/1eELvOFhvU7BpXIzDhOLDOIlTbJy5KrYq/view?usp=sharing),
-[PDF](https://drive.google.com/file/d/1RrDwgiRb_zyAFHyjcw0eih1gRjDUZj0p/view?usp=sharing)
+[PDF]( )
 
 # Table of Contents
 - [Background](#Background)
@@ -36,7 +35,7 @@ Furthermore, obesity has been shown to have a network effect [(4)](https://www.n
 
 
 
-In this project, tweets about fad diets are used to understand the relationship to obesity prevalence rates in US cities.
+In this project, tweets about fad diets are used to understand the relationship between fad diet twitter sentiment to obesity prevalence rates in US cities.
 
 
 
@@ -72,7 +71,7 @@ Tweets are clustered around major cities indicating that tweets can be analyzed 
 
 ![](images/capstone3process.png)
 
-Tweets are filtered as described in Data Sources. A sentiment score is calculated for each tweet using TextBlob after preprocessing, which includes removal of URLs, smileys, mentions and emojis. For more information on Natural Language Processing of tweets see my [second capstone](https://github.com/vinhttran/fad_diets_ml) which found the broad topics in the tweet text using Latent Dirichlet Allocation:
+Tweets are filtered as described in Data Sources above. A sentiment score is calculated for each tweet using TextBlob after preprocessing, which includes removal of URLs, smileys, mentions and emojis. For more information on Natural Language Processing of tweets see my [second capstone](https://github.com/vinhttran/fad_diets_ml) which found the broad topics in the tweet text using Latent Dirichlet Allocation:
 
 
 These are the most common words in the tweets:
@@ -87,7 +86,7 @@ Each variable is inspected. In the feature matrix, variables highly correlated v
 
 
 # Modeling
-Because the dependent variable is categorical, classification models are used to predict obesity prevalence: logistic regression, random forest, and gradient boosting. Using accuracy as the performance metric (the number of correct predictions divided by total predictions), Random Forest performed the best. In the baseline model the accuracy score is 0.68. With the full feature matrix, including tweet sentiment, the accuracy score improved by 6% to .74. GridSearch is used to find the optimal hyperparameters.
+Because the dependent variable is categorical, classification models are used to predict obesity prevalence: logistic regression, random forest, and gradient boosting. Using accuracy as the performance metric (the number of correct predictions divided by total predictions), Random Forest performed the best. In the baseline model the accuracy score is 0.66. With the full feature matrix, including tweet sentiment, the accuracy score improved by 6% to .72. GridSearch is used to find the optimal hyperparameters.
 
 |Random Forest|Accuracy|Hyperparameters|
 |:---:|:---:|:---:|
@@ -107,18 +106,16 @@ The model is better at predicting high and medium obesity compared to low obesit
 Permutation Importance is used to determine the most important features in the model. This method is used because it is a more reliable method than the built-in feature importance method within sklearn. With permutation importance, a baseline accuracy is recorded using a validation set. Then features are permuted and accuracy score is re-calculated. The importance of a feature is the difference between the baseline and the drop in overall accuracy caused by permuting the feature.[(8)](https://eli5.readthedocs.io/en/latest/blackbox/permutation_importance.html)
 
 
-Baseline Permutation Importances: "Per capita income," "Asian alone," "Mean travel time to work," and "Hispanic" are the top features based on permutation importance.
+Baseline Permutation Importances: "Median gross rent" and "Per capita income" are the top features based on permutation importance.
 
 ![](images/permutation_importances_baseline.png)
 
-Full Permutation Importances: Positive and negative tweet scores are the 5th and 7th most important features in the model.
+Full Permutation Importances: Positive and negative tweet scores are the 6th and 7th most important features in the full model.
 
 ![](images/permutation_importances_full.png)
 
 ### Partial Dependence Plots
-which show how a model’s predictions depend on a single input. The plot below shows the relationship (according the model that we trained) between price (target) and number of bathrooms.
-
-Partial dependence plots show the relationship according to the trained model between a variable and the target (obesity prevalence) . Obesity prevalence is categorized into high and medium+low for this purpose because it is more important to see the impact on cities with high obesity prevalence.
+Partial dependence plots show the relationship according to the trained model between a variable and the target (obesity prevalence). Obesity prevalence is categorized into high and medium+low for this purpose because it is more important to see the impact on cities with high obesity prevalence.
 
 Looking at the two highest permutation importance features, High obesity rates are dependent on Median Gross Rent from $800 to $900 a month after which the dependence decreases rapidly.
 
@@ -162,10 +159,9 @@ Future research should link BMI scores to each tweet to unveil the true relation
 # Tools Used:
 - Twitter API
 - Census and CDC data
-- Python Libraries: Pandas, NumPy, Sklearn, Genism
 - Natural Language Processing (TextBlob)
 - Logistic Regression, Random Forest, Gradient Boosting
--   GridSearchCV
+- Python Libraries: Pandas, NumPy, Sklearn, Matplotlib, Seaborn, Folium, Tweepy, GridSearchCV
 
 
 <a href="#Analyzing-Fad-Diet-Tweets">Back to top</a>
