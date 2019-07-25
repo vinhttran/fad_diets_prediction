@@ -152,10 +152,10 @@ Future research should link BMI scores to each tweet to unveil the true relation
 3. https://www.cdc.gov/obesity/data/adult.html
 4. https://www.nejm.org/doi/full/10.1056/NEJMsa066082
 5. https://www.mayoclinic.org
-6. https://www.cdc.gov/500cities/index.htm)
+6. https://www.cdc.gov/500cities/index.htm
 7. https://www.census.gov/quickfacts/fact/table/mobilecityalabama,US/PST045218
 8. https://eli5.readthedocs.io/en/latest/blackbox/permutation_importance.html
-9. https://www.niemanlab.org/2019/06/twitter-is-turning-off-location-data-on-tweets-a-small-win-for-privacy-but-a-small-loss-for-journalists-and-researchers/)
+9. https://www.niemanlab.org/2019/06/twitter-is-turning-off-location-data-on-tweets-a-small-win-for-privacy-but-a-small-loss-for-journalists-and-researchers/
 
 
 
