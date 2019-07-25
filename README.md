@@ -50,7 +50,7 @@ Tweets are clustered around major cities indicating that tweets can be analyzed 
 ![](images/Tweets_Heat_Map.png)
 
 
-### Overview of fad diets [5](mayoclinic.org)
+### Overview of fad diets [(5)](mayoclinic.org)
 
 |Diet|Description|
 |:---:|:---:|
