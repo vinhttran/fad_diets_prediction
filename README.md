@@ -55,7 +55,7 @@ Tweets are clustered around major cities indicating that tweets can be analyzed 
 |Diet|Description|
 |:---:|:---:|
 |Keto| Low-carb, high-fat. The idea is to put your body into a metabolic state called ketosis. |
-|Gluten Free| Exclude the protein gluten found in many grains. In non celiac or wheat-sensitive persons its purported benefits are improved health, weight loss and increased energy.|
+|Gluten Free| Exclude the protein gluten found in many grains. In non-celiac or wheat-sensitive persons its purported benefits are improved health, weight loss and increased energy.|
 |Atkins| Low-carb. Promoted by the physician Dr. Robert C. Atkins, who wrote a best-selling book about it in 1972.|
 |Paleo| Also known as the caveman diet. Based on foods similar to what might have been eaten during the Paleolithic era with a diet high in lean meats, fish, fruits, vegetables, nuts and seeds. Limits dairy products, legumes and grains.|
 |Whole30|For 30 days, no sugar, alcohol, grains, legumes, dairy or treats in general are allowed Moderate amounts of meat, seafood and eggs; vegetables aplenty; some fruit; and natural fats such as nuts and avocado.|
